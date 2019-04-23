@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UTSME: Telemetry</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="style.css" type="text/css">
+
+</head>
+
+<body>
+  <header>
+    <h1 class="title">UTS Motorsports 2019</h1>
+</header>
+  <div class="gauge">
+    <div class="label">Speedometer</div>
+    <div class="sc-background">
+        <div class="sc-percentage" id=""></div>
+        <div class="sc-mask"></div>
+        <span class="sc-value" id="g1">100</span>
+      </div>
+      <span class="sc-min">0</span>
+      <span class="sc-max">100</span>
+  </div>
+  <button id="button">Click Me!</button>
+
+  <div class="gauge">
+    <div class="label">Velocity</div>
+    <div class="sc-background">
+        <div class="sc-percentage" id=""></div>
+        <div class="sc-mask"></div>
+        <span class="sc-value" id="g1">100</span>
+      </div>
+      <span class="sc-min">0</span>
+      <span class="sc-max">1000</span>
+  </div>
+
+  <div class="gauge">
+    <div class="label">Temperature</div>
+    <div class="sc-background">
+        <div class="sc-percentage" id=""></div>
+        <div class="sc-mask"></div>
+        <span class="sc-value" id="g1">100</span>
+      </div>
+      <span class="sc-min">30</span>
+      <span class="sc-max">90</span>
+  </div>
+  <div class="petrol">
+    <div class="petrol-label">Petrol</div>
+    <div class="petrol-min">0</div>
+    <div class="petrol-max">100</div>
+    </div>
+  </div>
+
+<div class="brake">
+  <div class="brake-label">Brake Pressure:</div>
+  <div class="brake-pressure" id="num">0</div>
+  <button class="brake-btn" id="btn">Brakes</button>
+</div>
+
+</body>
+
+<script src="gui.js" type="text/javascript"></script>
+
+</html>

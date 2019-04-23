@@ -1,0 +1,129 @@
+body {
+  background-color:#303338;
+  font-family: sans-serif;
+  color:#fff;
+  text-align:center;
+  margin: 0;
+  padding: 0;
+  position: static;
+}
+header {
+  background: white;
+  padding: 10px;
+}
+header > h1 {
+  font-size: 42px;
+  color: #303338;
+}
+
+code {
+  display:inline-block;
+  max-width:600px;
+  padding:80px 0 0;
+  line-height:1.5;
+  font-family:monospace;
+  color:#ccc
+}
+
+
+.gauge  {
+  width:200px;
+  height:200px;
+  margin:100px 50px auto;
+  float: left;
+}
+.sc-background {
+  position:relative;
+  height:100px;
+  margin-bottom:10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius:150px 150px 0 0;
+  overflow:hidden;
+  text-align:center;
+}
+.sc-mask {
+  position:absolute;
+  top:20px;
+  right:20px;
+  left:20px;
+  height:80px;
+  background-color:#303338;
+  border-radius:150px 150px 0 0
+}
+.sc-percentage {
+  position:absolute;
+  top:100px;
+  left:-200%;
+  width:400%;
+  height:400%;
+  margin-left:100px;
+  background-color:#00aeef;
+}
+.sc-percentage {
+  transform:rotate(180deg); //This is where the wheel changes
+  transform-origin:top center;
+}
+.sc-min {
+  float:left;
+}
+.sc-max {
+  float:right;
+}
+.sc-value {
+  position: absolute;
+  top:50%;
+  left:0;
+  width:100%;
+  font-size:48px;
+  font-weight:700;
+}
+
+.label {
+  position: relative;
+  margin: -50px 10px auto;
+  font-size: 32px;
+}
+
+.petrol {
+  height: 50px;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.7);
+  position: relative;
+  float: left;
+  margin:100px 50px auto;
+
+}
+
+.petrol-label {
+  color: white;
+  position: inherit;
+  top: -55px;
+  font-size: 32px;
+}
+
+.petrol-min {
+  position: relative;
+  float: left;
+  margin: 20px 0px auto;
+
+}
+.petrol-max {
+  position: relative;
+  float: right;
+  margin: 20px 0px auto;
+}
+
+.brake {
+  float: left;
+  margin: 100px 50px auto;
+}
+
+.brake-pressure {
+  font-size: 32px;
+}
+
+.brake-label {
+  position: relative;
+  margin: -50px 10px auto;
+  font-size: 32px;
+}
