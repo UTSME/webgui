@@ -18,6 +18,11 @@ header > h1 {
   color: #303338;
 }
 
+header > h2 {
+  font-size: 30px;
+  color: #303338;
+}
+
 code {
   display:inline-block;
   max-width:600px;
@@ -149,4 +154,14 @@ code {
   position: inherit;
   font-size:48px;
   font-weight:700;
+}
+
+.home,
+.electrical,
+.mechanical,
+.start-up {
+  width: 100px;
+  height: 25px;
+  background-color: white;
+  border-color: black;
 }
