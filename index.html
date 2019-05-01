@@ -12,51 +12,81 @@
   <header>
     <h1 class="title">UTS Motorsports 2019</h1>
 </header>
-  <div class="gauge">
-    <div class="label">Speedometer</div>
-    <div class="sc-background">
-        <div class="sc-percentage" id=""></div>
-        <div class="sc-mask"></div>
-        <span class="sc-value" id="g1">100</span>
-      </div>
-      <span class="sc-min">0</span>
-      <span class="sc-max">100</span>
-  </div>
-  <button id="button">Click Me!</button>
 
-  <div class="gauge">
-    <div class="label">Velocity</div>
-    <div class="sc-background">
-        <div class="sc-percentage" id=""></div>
-        <div class="sc-mask"></div>
-        <span class="sc-value" id="g1">100</span>
-      </div>
-      <span class="sc-min">0</span>
-      <span class="sc-max">1000</span>
+  <div class="steer">
+    <div class="steer-label">Steer Pos</div>
+    <div class="steer-min">-90</div>
+    <div class="steer-max">90</div>
+    <label class="steer-num" id="steer-num"> 0 </label>
   </div>
 
   <div class="gauge">
-    <div class="label">Temperature</div>
-    <div class="sc-background">
-        <div class="sc-percentage" id=""></div>
-        <div class="sc-mask"></div>
-        <span class="sc-value" id="g1">100</span>
-      </div>
-      <span class="sc-min">30</span>
-      <span class="sc-max">90</span>
-  </div>
-  <div class="petrol">
-    <div class="petrol-label">Petrol</div>
-    <div class="petrol-min">0</div>
-    <div class="petrol-max">100</div>
-    </div>
+    <label class="label">Brake Pressure</label>
+    <div class="brake-number">0</div>
   </div>
 
-<div class="brake">
-  <div class="brake-label">Brake Pressure:</div>
-  <div class="brake-pressure" id="num">0</div>
-  <button class="brake-btn" id="btn">Brakes</button>
+  <div class="gauge">
+    <table>
+        <tr>
+          <label class="label"> Down Force</label>
+            <td class="df-fault-1">FL</td>
+            <td class="df-fault-2">FR</td>
+            <td class="df-fault-3">BL</td>
+            <td class="df-fault-4">BK</td>
+        </tr>
+    </table>
+  </div>
+
+<div class="gauge">
+  <table>
+    <tr>
+      <label class="label">Faults</label>
+      <td class="fault-1">F1</td>
+      <td class="fault-2">F2</td>
+      <td class="fault-3">F3</td>
+      <td class="fault-4">F4</td>
+    </tr>
+  </table>
 </div>
+
+<div class="gauge">
+  <div class="label">BMS Current</div>
+  <div class="bms-number">0</div>
+</div>
+<div class="gauge">
+  <div class="label">Speedometer</div>
+  <div class="sc-background" id="speed">
+      <div class="sc-percentage" id=""></div>
+      <div class="sc-mask"></div>
+      <span class="sc-value" id="g1">100</span>
+    </div>
+    <span class="sc-min">0</span>
+    <span class="sc-max">100</span>
+</div>
+
+<div class="gauge">
+  <div class="label">Acc Voltage</div>
+  <div class="sc-background">
+      <div class="sc-percentage" id=""></div>
+      <div class="sc-mask"></div>
+      <span class="sc-value" id="g1">100</span>
+    </div>
+    <span class="sc-min">0</span>
+    <span class="sc-max">1000</span>
+</div>
+
+<div class="gauge">
+  <div class="label">Temperature</div>
+  <div class="sc-background">
+      <div class="sc-percentage" id=""></div>
+      <div class="sc-mask"></div>
+      <span class="sc-value" id="g1">100</span>
+    </div>
+    <span class="sc-min">30</span>
+    <span class="sc-max">90</span>
+</div>
+
+
 
 </body>
 

@@ -1,11 +1,13 @@
+* {
+  box-sizing: border-box;
+}
 body {
   background-color:#303338;
   font-family: sans-serif;
   color:#fff;
   text-align:center;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  position: static;
 }
 header {
   background: white;
@@ -25,10 +27,9 @@ code {
   color:#ccc
 }
 
-
 .gauge  {
-  width:200px;
-  height:200px;
+  width: 200px;
+  height: 200px;
   margin:100px 50px auto;
   float: left;
 }
@@ -48,7 +49,7 @@ code {
   left:20px;
   height:80px;
   background-color:#303338;
-  border-radius:150px 150px 0 0
+  border-radius:150px 150px 0 0;
 }
 .sc-percentage {
   position:absolute;
@@ -78,52 +79,74 @@ code {
   font-weight:700;
 }
 
-.label {
+.label,
+.fault-label,
+.steer-label {
   position: relative;
   margin: -50px 10px auto;
   font-size: 32px;
 }
 
-.petrol {
+.steer {
   height: 50px;
   width: 200px;
   background-color: rgba(255, 255, 255, 0.7);
   position: relative;
   float: left;
   margin:100px 50px auto;
-
 }
 
-.petrol-label {
-  color: white;
-  position: inherit;
-  top: -55px;
-  font-size: 32px;
-}
-
-.petrol-min {
-  position: relative;
+.steer-min {
+  position:relative;
+  top: 70%;
   float: left;
   margin: 20px 0px auto;
 
 }
-.petrol-max {
+.steer-max {
   position: relative;
+  top: 70%;
   float: right;
   margin: 20px 0px auto;
 }
 
-.brake {
-  float: left;
-  margin: 100px 50px auto;
+.steer-num{
+  position: absolute;
+  top:100%;
+  left:0;
+  width:100%;
+  font-size:48px;
+  font-weight:700;
 }
 
+.down-force,
+.faults,
 .brake-pressure {
-  font-size: 32px;
+  float: left;
+  width: auto;
+  height: auto;
+  margin: 100px 50px auto;
+  display: inline-table;
 }
 
-.brake-label {
-  position: relative;
-  margin: -50px 10px auto;
-  font-size: 32px;
+
+.df-fault-1,
+.df-fault-2,
+.df-fault-3,
+.df-fault-4,
+.fault-1,
+.fault-2,
+.fault-3,
+.fault-4
+ {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.brake-number,
+.bms-number {
+  position: inherit;
+  font-size:48px;
+  font-weight:700;
 }
