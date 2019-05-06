@@ -86,7 +86,13 @@ code {
 
 .label,
 .fault-label,
-.steer-label {
+.steer-label,
+.wheel-speed-label,
+.battery-temp-label,
+.battery-voltage-label,
+.ct-label,
+.lt-label,
+.sector-label {
   position: relative;
   margin: -50px 10px auto;
   font-size: 32px;
@@ -126,7 +132,13 @@ code {
 
 .down-force,
 .faults,
-.brake-pressure {
+.brake-pressure,
+.wheel-speed,
+.battery-temp,
+.battery-voltage,
+.colant-temp,
+.lap-times,
+.sector-times {
   float: left;
   width: auto;
   height: auto;
@@ -150,7 +162,12 @@ code {
 }
 
 .brake-number,
-.bms-number {
+.bms-number,
+.bt-num,
+.bv-num,
+.ct-num,
+.lt-num,
+.sector-num {
   position: inherit;
   font-size:48px;
   font-weight:700;
@@ -164,4 +181,17 @@ code {
   height: 25px;
   background-color: white;
   border-color: black;
+}
+
+.graph,
+.motor-temp {
+  margin: 50px 25px auto;
+}
+
+.ws-front-label,
+.ws-rear-label,
+.ws-front,
+.ws-rear {
+  font-size: 24px;
+  text-align:center;
 }
