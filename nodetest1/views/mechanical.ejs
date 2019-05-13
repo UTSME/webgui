@@ -1,0 +1,67 @@
+<DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UTSME: Telemetry</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+
+</head>
+
+<body>
+  <header>
+    <h1 class="title">UTS Motorsports 2019: Mechanical</h1>
+    <button type="button" class="home" onclick="location.href='http://localhost:3000'">Home</button>
+    <button type="button" class="mechanical" onclick="location.href='http://localhost:3000/mechanical'">Mechanical</button>
+    <button type="button" class="electrical" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
+    <button type="button" class="start-up" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
+</header>
+<!-- <script src="plotly.min.js"></script>
+<div class="graph" id="graph">
+<div class="motor-temp" id="motor-temp"> -->
+
+
+<div class="battery-temp">
+      <div class="battery-temp-label">Battery Temp</div>
+      <div class="bt-num">0°C</div>
+</div>
+
+<div class="battery-voltage">
+      <div class="battery-voltage-label">Battery Voltage</div>
+      <div class="bv-num">0</div>
+</div>
+
+<div class="colant-temp">
+      <div class="ct-label">Colant Temp</div>
+      <div class="ct-num">0°C</div>
+</div>
+
+<div class="lap-times">
+      <div class="lt-label">Lap Times</div>
+      <div class="lt-num">00:00</div>
+</div>
+
+<div class="sector-times">
+      <div class="sector-label">Sector Times</div>
+      <div class="sector-num">00:00</div>
+</div>
+
+<div class="wheel-speed">
+  <div class="wheel-speed-label">Wheel Speed</div>
+  <table>
+    <td>
+        <div class="ws-front-label">Front: </div>
+        <div class="ws-rear-label">Rear: </div>
+    </td>
+    <td>
+      <div class="ws-front">0</div>
+      <div class="ws-rear">0</div>
+  </td>
+  </table>
+</div>
+
+</body>
+
+<script src="gui.js" type="text/javascript"></script>
+
+</html>
