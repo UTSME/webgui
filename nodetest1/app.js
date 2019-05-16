@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var monk = require('monk');
-var db = monk('localhost:3000');
+var db = monk('localhost:27017/telemetry');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
