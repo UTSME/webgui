@@ -16,13 +16,23 @@
     <button type="button" class="electrical" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
     <button type="button" class="start-up" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
 </header>
+<script  src="javascripts\socket.io\lib\socket.js"></script>
 
   <div class="steer" id="steer">
     <div class="steer-label" id="steer-label">Steer Pos</div>
     <div class="steer-min" id="steer-min">-90</div>
     <div class="steer-max" id="steer-max">90</div>
-    <p class="steer-num" id="steer-num">0</p>
+    <div class="steer-num" id="steer-num">0</div>
   </div>
+
+  <script>
+    var socket = io.connect('localhost:3000');
+    socket.on('data', function(data) {
+      console.log(data)
+      document.getElementById("steer-num").innerHTML = data;
+
+    });
+  </script>
 
   <div class="gauge" id="gauge">
     <label class="label" id="brake-label">Brake Pressure</label>
@@ -62,7 +72,7 @@
   <div class="sc-background" id="speed">
       <div class="sc-percentage" id="sc=percentage"></div>
       <div class="sc-mask" id="sc-mask"></div>
-      <span class="sc-value" id="sc-value">100</span>
+      <span class="sc-value" id="sc-value">0</span>
     </div>
     <span class="sc-min" id="sc-min">0</span>
     <span class="sc-max" id="sc-max">100</span>
@@ -89,8 +99,12 @@
     <span class="sc-min">30</span>
     <span class="sc-max">90</span>
 </div>
-
+<script>
+  var socket = io();
+</script>
 </body>
-<script src="routes\index.js" type="text/javascript"></script>
+<script src="javascripts\index.js" type="javascript"></script>
+
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 
 </html>

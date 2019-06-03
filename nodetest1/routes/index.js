@@ -1,28 +1,34 @@
 var express = require('express');
 var router = express.Router();
+var server = require('http').Server(express);
+var io = require("socket.io")(server);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home Page' });
-  var db = req.db;
-  var collection = db.get('UTSTelemetry');
-  collection.find({}).each(( {type, number}) => {
-    console.log(type + " :: " + number);
-    switch(type) {
-      case "speed" : update('sc-value', number);
-                     break;
-      case "steer" : update('steer-num', number);
-                     break;
-      case "brake" : update('brake-number', number);
-                     break;
-      default:       break;
-    }
+  // res.sendFile(__dirname + 'index');
+    res.render('index.ejs');
+  // var db = req.db;
+  // var collection = db.get('UTSTelemetry');
+  // collection.find({}).each(( {type, number}) => {
+  //   console.log(type + " :: " + number);
+  //       res.render('index.ejs', {
+  //         speed_num: number,
+  //         type: type
+  //      });
+  // });
+});
+
+io.on('connection', function(socket) {
+  console.log("hello");
+  socket.on('number', function(num) {
+    console.log('number: ' + num);
   });
 });
 
-function update(id, number) {
-  //document.getElementsByClassName(id).innerHTML = "3";
-}
+// server.listen(process.env.PORT || 3000, function() {
+//   console.log('app running');
+// });
+
 /* GET mechanical page. */
 router.get('/mechanical', function(req, res) {
     res.render('mechanical', { title: 'Mechanical' });
@@ -38,22 +44,6 @@ router.get('/electrical', function(req, res) {
 router.get('/start-up', function(req, res) {
     res.render('start-up', { title: 'Start Up' });
 });
-
-
-// console.log("Hellooo");
-// router.get('views/index', function(req, res) {
-//     var db = req.db;
-//     console.log("Helloo");
-//     var collection = db.get('UTSTelemetry');
-//     console.log("Hello");
-//     collection.find({},{},function(e,docs){
-//         res.render('index', {
-//             "steer-label" : docs
-//         });
-//         console.log("docs");
-//     });
-// });
-// console.log("For real but im not a hipster");
 
 
 module.exports = router;
