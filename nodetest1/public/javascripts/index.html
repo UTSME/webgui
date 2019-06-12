@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UTSME: Telemetry</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+</head>
+
+<body>
+
+
+  <header>
+    <h1 class="title">UTS Motorsports 2019</h1>
+    <button type="button" class="home" onclick="location.href='http://localhost:3000'">Home</button>
+    <button type="button" class="mechanical" onclick="location.href='http://localhost:3000/mechanical'">Mechanical</button>
+    <button type="button" class="electrical" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
+    <button type="button" class="start-up" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
+</header>
+  <div class="steer" id="steer">
+    <div class="steer-label" id="steer-label">Steer Pos</div>
+    <div class="steer-min" id="steer-min">-90</div>
+    <div class="steer-max" id="steer-max">90</div>
+    <div class="steer-num" id="steer-num">0</div>
+    <script src="javascripts/socket.io/lib/socket.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</div>
+<script>
+console.log("He");
+$(function() {
+  var socket = io();
+  socket.on('data', function(items) {
+    $('#steer-num').text(items);
+  });
+});
+</script>
+  <div class="gauge" id="gauge">
+    <label class="label" id="brake-label">Brake Pressure</label>
+    <div class="brake-number" id="brake-number">0</div>
+  </div>
+
+  <div class="gauge" id="gauge">
+    <table>
+        <tr>
+          <label class="label" id="df-label"> Down Force</label>
+            <td class="df-fault-1" id="df-fault-1">FL</td>
+            <td class="df-fault-2" id="df-fault-2">FR</td>
+            <td class="df-fault-3" id="df-fault-3">BL</td>
+            <td class="df-fault-4" id="df-fault-4">BK</td>
+        </tr>
+    </table>
+  </div>
+
+<div class="gauge">
+  <table>
+    <tr>
+      <label class="label" id="faults-label">Faults</label>
+      <td class="fault-1" id="fault-1">F1</td>
+      <td class="fault-2" id="fault-2">F2</td>
+      <td class="fault-3" id="fault-3">F3</td>
+      <td class="fault-4" id=="fault-4">F4</td>
+    </tr>
+  </table>
+</div>
+
+<div class="gauge">
+  <div class="label" id="bms-label">BMS Current</div>
+  <div class="bms-number" id="bms-number">0</div>
+</div>
+<div class="gauge">
+  <div class="label" id="speed-label">Speedometer</div>
+  <div class="sc-background" id="speed">
+      <div class="sc-percentage" id="sc=percentage"></div>
+      <div class="sc-mask" id="sc-mask"></div>
+      <span class="sc-value" id="sc-value">0</span>
+    </div>
+    <span class="sc-min" id="sc-min">0</span>
+    <span class="sc-max" id="sc-max">100</span>
+</div>
+
+<div class="gauge">
+  <div class="label" id="acc-label">Acc Voltage</div>
+  <div class="sc-background">
+      <div class="sc-percentage" id=""></div>
+      <div class="sc-mask"></div>
+      <span class="sc-value" id="g1">100</span>
+    </div>
+    <span class="sc-min">0</span>
+    <span class="sc-max">1000</span>
+</div>
+
+<div class="gauge">
+  <div class="label">Temperature</div>
+  <div class="sc-background">
+      <div class="sc-percentage" id=""></div>
+      <div class="sc-mask"></div>
+      <span class="sc-value" id="g1">100</span>
+    </div>
+    <span class="sc-min">30</span>
+    <span class="sc-max">90</span>
+</div>
+
+</body>
+<script src="javascripts/index.js" type="javascript"></script>
+</html>
