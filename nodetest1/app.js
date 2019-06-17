@@ -4,11 +4,7 @@ var path = require('path');
 // var server = require('http').Server(express);
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// const io = require('socket.io')(server);
-// var http = require('http');
-// var server = http.createServer();
-// server.listen(3001);
-// New Code
+
 var monk = require('monk');
 var db = monk('localhost:27017/telemetry');
 

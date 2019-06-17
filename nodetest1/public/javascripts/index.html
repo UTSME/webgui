@@ -12,27 +12,29 @@
 
   <header>
     <h1 class="title">UTS Motorsports 2019</h1>
-    <button type="button" class="home" onclick="location.href='http://localhost:3000'">Home</button>
-    <button type="button" class="mechanical" onclick="location.href='http://localhost:3000/mechanical'">Mechanical</button>
-    <button type="button" class="electrical" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
-    <button type="button" class="start-up" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
+    <button type="button" class="home" onclick="location.href='http://localhost'">Home</button>
+    <button type="button" class="mechanical" onclick="location.href='http://localhost/mechanical'">Mechanical</button>
+    <button type="button" class="electrical" onclick="location.href='http://localhost/electrical'">Electrical</button>
+    <button type="button" class="start-up" onclick="location.href='http://localhost/start-up'">Start Up</button>
 </header>
   <div class="steer" id="steer">
     <div class="steer-label" id="steer-label">Steer Pos</div>
     <div class="steer-min" id="steer-min">-90</div>
     <div class="steer-max" id="steer-max">90</div>
     <div class="steer-num" id="steer-num">0</div>
-    <script src="javascripts/socket.io/lib/socket.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </div>
 <script>
-console.log("He");
-$(function() {
-  var socket = io();
-  socket.on('data', function(items) {
-    $('#steer-num').text(items);
+  var socket = io.connect('http://localhost:3000');
+    socket.on('connection', function(data) {
+      // alert(data);
+      console.log("connection");
+
+      socket.on('hello', data => {
+        console.log("connection22");
+        document.getElementById('steer-num').innerHTML = data;
+      });
+      socket.emit('my other event', {my: 'data'});
   });
-});
 </script>
   <div class="gauge" id="gauge">
     <label class="label" id="brake-label">Brake Pressure</label>
@@ -101,5 +103,7 @@ $(function() {
 </div>
 
 </body>
-<script src="javascripts/index.js" type="javascript"></script>
+<script src="javascripts/socket.io/lib/socket.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="javascripts/index.js" ></script>
 </html>
