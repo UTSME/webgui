@@ -4,14 +4,41 @@ var path = require('path');
 // var server = require('http').Server(express);
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const app = express();
 
-var monk = require('monk');
-var db = monk('localhost:27017/telemetry');
+var db = 'mongodb://localhost:27017/telemetry';
 
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT);
+var io = require('socket.io')(server);
 var indexRouter = require('./public/javascripts/index.js');
+app.use(express.static(__dirname + '/public'));
 
-var app = express();
+// server.listen(app.get('port'), function() {
+//   console.log("listening on port 3000");
+// });
+app.use('/', indexRouter);
 
+io.on('connection', function(socket) {
+  console.log('a user is connected ' + socket.id );
+  socket.emit('hello', 'can yu hear me?');
+});
+app.io = io;
+var MongoClient = require('mongodb').MongoClient;
+// Connect to the db
+MongoClient.connect(db, function (err, db) {
+  if(err) {
+    throw err;
+  } else {
+    var db = db.db('telemetry');
+    db.collection("UTSTelemetry").find().toArray(function(err, items) {
+      if(err) throw err;
+      console.log(items);
+      io.emit('data', items);
+
+  });
+}
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
@@ -28,7 +55,6 @@ app.use(function(req,res,next){
   next();
 });
 
-app.use('/', indexRouter);
 
 
 // catch 404 and forward to error handler
@@ -48,3 +74,4 @@ res.render('error.ejs');
 });
 
 module.exports = app;
+module.exports.io = io;

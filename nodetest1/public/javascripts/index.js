@@ -1,5 +1,5 @@
 var app = require('express')();
-var server = require('http').Server(app);
+var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 app.get('/', function(req, res) {
@@ -28,24 +28,25 @@ io.on('connection', function(socket) {
 
 
 
-var MongoClient = require('mongodb').MongoClient;
-
-// Connect to the db
-MongoClient.connect("mongodb://localhost:27017/telemetry", function (err, db) {
-  if(err) {
-    throw err;
-  } else {
-    var db = db.db('telemetry');
-    db.collection("UTSTelemetry").find().toArray(function(err, items) {
-      if(err) throw err;
-      console.log(items);
-      io.on('hello', function(data) {
-        io.emit('data', items);
-      });
-
-  });
-}
-});
+// var MongoClient = require('mongodb').MongoClient;
+//
+// // Connect to the db
+// MongoClient.connect("mongodb://localhost:27017/telemetry", function (err, db) {
+//   if(err) {
+//     throw err;
+//   } else {
+//     var db = db.db('telemetry');
+//     db.collection("UTSTelemetry").find().toArray(function(err, items) {
+//       if(err) throw err;
+//       console.log(items);
+//       io.on('hello', function(data) {
+//         io.emit('data', items);
+//       });
+//
+//
+//   });
+// }
+// });
 
 // var db = req.db;
 // var collection = db.get('UTSTelemetry');
@@ -69,8 +70,8 @@ app.get('/start-up', function(req, res) {
   res.render('start-up', { title: 'Start Up' });
 });
 
-server.listen(app.get('port'), function() {
-  console.log("listening on port 3000");
-});
+// server.listen(app.get('port'), function() {
+//   console.log("listening on port 3000");
+// });
 
 module.exports = app;
