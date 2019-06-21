@@ -19,10 +19,10 @@ app.use(express.static(__dirname + '/public'));
 // });
 app.use('/', indexRouter);
 
-io.on('connection', function(socket) {
-  console.log('a user is connected ' + socket.id );
-  socket.emit('hello', 'can yu hear me?');
-});
+// io.on('connection', function(socket) {
+//   console.log('a user is connected ' + socket.id );
+//   socket.emit('hello', 'can yu hear me?');
+// });
 app.io = io;
 var MongoClient = require('mongodb').MongoClient;
 // Connect to the db
@@ -31,10 +31,14 @@ MongoClient.connect(db, function (err, db) {
     throw err;
   } else {
     var db = db.db('telemetry');
-    db.collection("UTSTelemetry").find().toArray(function(err, items) {
+    db.collection("UTSTelemetry").find({}, {projection: {_id: 0, type:1, number:1}}).toArray(function(err, items) {
       if(err) throw err;
       console.log(items);
       io.emit('data', items);
+      io.on('connection', function(socket) {
+        console.log('a user is connected ' + socket.id );
+          socket.emit('hello', items);
+      });
 
   });
 }

@@ -27,16 +27,17 @@
     <div class="steer-num" id="steer-num">0</div>
 </div>
 <script>
-  var socket = io.connect('http://localhost:3000');
+  var socket = io('http://localhost:3000');
 
-    socket.on('connection', function(data) {
+    socket.on('hello', function(data) {
       // alert(data);
-      alert("connection");
-      socket.on('hello', data => {
-        console.log("connection22");
+      console.log(data);
+
+      setInterval(function() {
         document.getElementById('steer-num').innerHTML = data;
-      });
-      socket.emit('my other event', {my: 'data'});
+
+      }, 1000);
+
   });
   console.log("hello");
 </script>
