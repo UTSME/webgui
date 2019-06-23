@@ -13,6 +13,8 @@
   <script src="\javascripts\socket.io\lib\socket.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="\javascripts\index.js" ></script>
+  <script src="javascripts\semantic\dist\semantic.min.js"></script>
+
   <header>
     <h1 class="title">UTS Motorsports 2019</h1>
     <button type="button" class="home" onclick="location.href='http://localhost'">Home</button>
@@ -28,15 +30,23 @@
 </div>
 <script>
   var socket = io('http://localhost:3000');
-
-    socket.on('hello', function(data) {
-      // alert(data);
-      console.log(data);
-
-      setInterval(function() {
-        document.getElementById('steer-num').innerHTML = data;
-
-      }, 1000);
+    socket.on('hello', function( type, number) {
+      console.log(type + number);
+      switch(type) {
+        case 'steer' : {
+          document.getElementById('steer-num').innerHTML = number;
+          $('#steer').progress({
+            percent: number
+          });
+          break;
+      }
+        case 'speed' : document.getElementById('sc-value').innerHTML = number; break;
+        case 'brake' : document.getElementById('brake-number').innerHTML = number; break;
+        case 'bms' : document.getElementById('bms-number').innerHTML = number; break;
+        case 'voltage' : document.getElementById('g1').innerHTML = number; break;
+        case 'temp' : document.getElementById('g2').innerHTML = number; break;
+        default: break;
+      }
 
   });
   console.log("hello");
@@ -101,12 +111,20 @@
   <div class="sc-background">
       <div class="sc-percentage" id=""></div>
       <div class="sc-mask"></div>
-      <span class="sc-value" id="g1">100</span>
+      <span class="sc-value" id="g2">100</span>
     </div>
     <span class="sc-min">30</span>
     <span class="sc-max">90</span>
 </div>
-
+<div class="ui teal progress" id="example2">
+  <div class="bar"></div>
+  <div class="label">22% Earned</div>
+</div>
+<script>
+$('#example2').progress({
+  percent: 22
+});
+</script>
 </body>
 
 </html>

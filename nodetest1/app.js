@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-// var server = require('http').Server(express);
+
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const app = express();
@@ -14,9 +14,6 @@ var io = require('socket.io')(server);
 var indexRouter = require('./public/javascripts/index.js');
 app.use(express.static(__dirname + '/public'));
 
-// server.listen(app.get('port'), function() {
-//   console.log("listening on port 3000");
-// });
 app.use('/', indexRouter);
 
 // io.on('connection', function(socket) {
@@ -31,13 +28,13 @@ MongoClient.connect(db, function (err, db) {
     throw err;
   } else {
     var db = db.db('telemetry');
-    db.collection("UTSTelemetry").find({}, {projection: {_id: 0, type:1, number:1}}).toArray(function(err, items) {
+    db.collection("UTSTelemetry").find({}).each(function(err, items) {
       if(err) throw err;
-      console.log(items);
+      console.log( items);
       io.emit('data', items);
       io.on('connection', function(socket) {
         console.log('a user is connected ' + socket.id );
-          socket.emit('hello', items);
+        if(items != null)  socket.emit('hello', items.type, items.number);
       });
 
   });
