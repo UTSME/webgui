@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// var logger = require('morgan');
 const app = express();
 
 var db = 'mongodb://localhost:27017/telemetry';
@@ -15,12 +15,8 @@ var indexRouter = require('./public/javascripts/index.js');
 app.use(express.static(__dirname + '/public'));
 
 app.use('/', indexRouter);
-
-// io.on('connection', function(socket) {
-//   console.log('a user is connected ' + socket.id );
-//   socket.emit('hello', 'can yu hear me?');
-// });
 app.io = io;
+
 var MongoClient = require('mongodb').MongoClient;
 // Connect to the db
 MongoClient.connect(db, function (err, db) {
@@ -33,7 +29,7 @@ MongoClient.connect(db, function (err, db) {
       console.log( items);
       io.emit('data', items);
       io.on('connection', function(socket) {
-        console.log('a user is connected ' + socket.id );
+        // console.log('a user is connected ' + socket.id );
         if(items != null)  socket.emit('hello', items.type, items.number);
       });
 
@@ -44,7 +40,7 @@ MongoClient.connect(db, function (err, db) {
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
