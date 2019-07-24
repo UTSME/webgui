@@ -6,70 +6,110 @@
   <title>UTSME: Telemetry</title>
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="\stylesheets\style.css" type="text/css">
+    <link rel="icon" href="images\download.jfif">
 </head>
 
-<body style="background-color: #303338; color:white">
+<body style="background-color: #303338; color:white"
+
+  <!-- All scripts used -->
   <script src="\javascripts\socket.io-client\dist\socket.io.js"></script>
   <script src="\javascripts\socket.io\lib\socket.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="\javascripts\index.js" ></script>
-  <script src="javascripts\semantic-ui\dist\semantic.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="raphael.2.1.0.min.js"></script>
-  <script src="justgage.1.0.1.min.js"></script>
-  <script src="node_modules/angular/angular.min.js"></script>
-  <script src="node_modules/angular-gauge/dist/angularjs-gauge.min.js"></script>
+<script src="\chart.js\dist\Chart.js"></script>
 
+<script>
+  function autoRefreshPage(){ window.location = href.location; }
+  setInterval('autoRefreshPage()', 5000);
+</script>
+<!-- The header, title and menu -->
   <header>
-    <h1 class="jumbotron text-center">UTS Motorsports 2019</h1>
-    <button type="button" class="home" onclick="location.href='http://localhost'">Home</button>
-    <button type="button" class="mechanical" onclick="location.href='http://localhost/mechanical'">Mechanical</button>
-    <button type="button" class="electrical" onclick="location.href='http://localhost/electrical'">Electrical</button>
-    <button type="button" class="start-up" onclick="location.href='http://localhost/start-up'">Start Up</button>
+    <img src="images\logo.jfif" alt="logo" onclick="location.href='http://localhost:3000'">
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/comp'">Comp</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/mechanical'">Mechanical</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000'">Home</button>
 </header>
+
+<!--*********************************DONT CHANGE ANYTHING ABOVE THIS LINE********************************************************* -->
+
+
+  <!-- This is where the gauges begin -->
+  <!-- Steering Position: value from -90 to +90 -->
+
   <div class="steer" id="steer" style="text-align:center">
     <div class="steer-label" id="steer-label" >Steer Pos</div>
     <div class="steer-min" id="steer-min">-90</div>
     <div class="steer-max" id="steer-max">90</div>
-    <div id="progress" class="progress" style="height: 100%">
-      <div id="steer" class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuemin="0" aria-valuemax="120"></div>
+    <div class="progress" style="height: 40%">
+    <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
     </div>
+  </div>
     <div class="steer-num" id="steer-num" style="text-align:center">0</div>
 </div>
-<script>
-  var socket = io('http://localhost:3000');
-    socket.on('hello', function( type, number) {
-      console.log(type + number);
-      switch(type) {
-        case 'steer' : {
-          document.getElementById('steer-num').innerHTML = number;
-          $('#progress').attr("aria-valuenow",number);
-          break;
-        }
-        case 'speed' : document.getElementById('sc-value').innerHTML = number; break;
-        case 'brake' : document.getElementById('brake-number').innerHTML = number; break;
-        case 'bms' : document.getElementById('bms-number').innerHTML = number; break;
-        case 'voltage' : document.getElementById('g1').innerHTML = number; break;
-        case 'temp' : document.getElementById('g2').innerHTML = number; break;
-        case 'df-fault1' : document.getElementById('df-fault-1').style.backgroundColor = "red"; break;
-        case 'df-fault2' : document.getElementById('df-fault-2').style.backgroundColor = "red"; break;
-        case 'df-fault3' : document.getElementById('df-fault-3').style.backgroundColor = "red"; break;
-        case 'df-fault4' : document.getElementById('df-fault-4').style.backgroundColor = "red"; break;
-        case 'fault1' : document.getElementById('fault-1').style.backgroundColor = "red"; break;
-        case 'fault2' : document.getElementById('df-fault-2').style.backgroundColor = "red"; break;
-        case 'fault3' : document.getElementById('df-fault-3').style.backgroundColor = "red"; break;
-        case 'fault4' : document.getElementById('df-fault-4').style.backgroundColor = "red"; break;
-        default: break;
-      }
+  <!-- Brake Pressue: What ever value is sent -->
 
-  });
-</script>
-  <div class="gauge" id="gauge" style="text-align:center">
-    <label class="label" id="brake-label">Brake Pressure</label>
-    <div class="brake-number" id="brake-number">0</div>
+
+  <!-- Speed: number from 0 to 120 -->
+  <div class="steer" id="steer" style="text-align:center">
+    <div class="steer-label" id="steer-label" >Speed</div>
+    <div class="steer-min" id="steer-min">0</div>
+    <div class="steer-max" id="steer-max">120</div>
+    <div class="progress" style="height: 40%">
+    <div id="speedometer" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+    </div>
   </div>
-  <div class="gauge" id="gauge" style="text-align:center">
+    <div class="steer-num" id="sc-value" style="text-align:center">0</div>
+</div>
+
+  <!-- Accelerator Voltage: Number from 0 to 1000 -->
+  <div class="steer" id="steer" style="text-align:center">
+    <div class="steer-label" id="steer-label" >Acc Voltage</div>
+    <div class="steer-min" id="steer-min">0</div>
+    <div class="steer-max" id="steer-max">1000</div>
+    <div class="progress" style="height: 40%">
+    <div id="voltage" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+    </div>
+  </div>
+    <div class="steer-num" id="vol-value" style="text-align:center">0</div>
+</div>
+
+<div class="steer" id="steer" style="text-align:center">
+  <div class="steer-label" id="steer-label" >Temperature</div>
+  <div class="steer-min" id="steer-min">0</div>
+  <div class="steer-max" id="steer-max">90</div>
+  <div class="progress" style="height: 40%">
+  <div id="temperature" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="90" style="width: 0%">
+  </div>
+</div>
+  <div class="steer-num" id="temp-value" style="text-align:center">0</div>
+</div>
+
+
+<div class="steer" id="steer" style="text-align:center">
+  <div class="steer-label" id="steer-label" >Brake Press</div>
+  <div class="steer-min" id="steer-min">0</div>
+  <div class="steer-max" id="steer-max">100</div>
+  <div class="progress" style="height: 40%">
+  <div id="brake" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="90" style="width: 0%">
+  </div>
+</div>
+  <div class="steer-num" id="brake-value" style="text-align:center">0%</div>
+</div>
+
+<!-- BMS Current: Whatever value is sent -->
+<div class="steer" style="text-align:center">
+  <div class="small">
+    <label class="label" id="bms-label">BMS Current</label>
+    <div class="bms-number" id="bms-number">0</div>
+  </div>
+</div>
+<!-- Down force: blocks either red or green -->
+<div class="steer" id="gauge" style="text-align:center">
+  <div class="small">
     <table>
         <tr>
           <label class="label" id="df-label"> Down Force</label>
@@ -79,9 +119,12 @@
             <td class="df-fault-4" id="df-fault-4">BK</td>
         </tr>
     </table>
-  </div>
+</div>
+</div>
 
-<div class="gauge" style="text-align:center">
+<!-- Faults: either red or green -->
+<div class="steer" style="text-align:center">
+  <div class="small">
   <table>
     <tr>
       <label class="label" id="faults-label">Faults</label>
@@ -92,45 +135,70 @@
     </tr>
   </table>
 </div>
-
-<div class="gauge" style="text-align:center">
-  <div class="label" id="bms-label">BMS Current</div>
-  <div class="bms-number" id="bms-number">0</div>
 </div>
-<div class="gauge" style="text-align:center">
-  <div class="label" id="speed-label">Speedometer</div>
-    <div class="gauge2" style="width: 200px; --rotation:140deg; --color:#5cb85c; --background:#e9ecef;">
-          <div class="percentage"></div>
-          <div class="mask"></div>
-          <span class="sc-value" id="sc-value">46</span>
+
+
+    <div class="steer" id="steer" style="text-align:center">
+        <div class="steer-label" id="steer-label" >Battery Temp</div>
+        <div class="steer-min" id="steer-min">0</div>
+        <div class="steer-max" id="steer-max">90</div>
+        <div class="progress" style="height: 40%">
+        <div id="battery" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+        </div>
+      </div>
+        <div class="bt-num" id="bt-num" style="text-align:center">0</div>
     </div>
-    <span class="sc-min" id="sc-min">0</span>
-    <span class="sc-max" id="sc-max">100</span>
-</div>
 
-<div class="gauge" style="text-align:center">
-  <div class="label" id="acc-label">Acc Voltage</div>
-    <div class="gauge2" style="width: 200px; --rotation:140deg; --color:#5cb85c; --background:#e9ecef;">
-          <div class="percentage"></div>
-          <div class="mask"></div>
-          <span class="sc-value" id="g1">46</span>
+    <div class="steer" id="steer" style="text-align:center">
+      <div class="steer-label" id="steer-label" >Battery Vol</div>
+      <div class="steer-min" id="steer-min">0</div>
+      <div class="steer-max" id="steer-max">1000</div>
+      <div class="progress" style="height: 40%">
+      <div id="batvol" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+      </div>
     </div>
-    <span class="sc-min">0</span>
-    <span class="sc-max">1000</span>
-</div>
-
-<div class="gauge" style="text-align:center">
-  <div class="label">Temperature</div>
-  <div class="gauge2" style="width: 200px; --rotation:140deg; --color:#5cb85c; --background:#e9ecef;">
-        <div class="percentage"></div>
-        <div class="mask"></div>
-        <span class="sc-value" id="temp">46</span>
+      <div class="bv-num" id="bv-num" style="text-align:center">0</div>
   </div>
-    <span class="sc-min">30</span>
-    <span class="sc-max">90</span>
+
+  <div class="steer" id="steer" style="text-align:center">
+    <div class="steer-label" id="steer-label" >Coolant Temp</div>
+    <div class="steer-min" id="steer-min">0</div>
+    <div class="steer-max" id="steer-max">90</div>
+    <div class="progress" style="height: 40%">
+    <div id="colant" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+    </div>
+  </div>
+    <div class="ct-num" id="ct-num" style="text-align:center">0</div>
+</div>
+
+    <div class="steer" id="steer" style="text-align:center">
+      <div class="steer-label" id="steer-label" >Wheel Speed</div>
+      <p>Front</p>
+      <div class="steer-min" id="steer-min">0</div>
+      <div class="steer-max" id="steer-max">100</div>
+      <div class="progress" style="height: 40%">
+      <div id="front" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+      </div>
+    </div>
+      <div class="ws-front" id="ws-front" style="text-align:center">0</div>
+  </div>
+
+  <div class="steer" id="steer" style="text-align:center">
+    <div class="steer-label" id="steer-label" >Wheel Speed</div>
+    <p>Rear</p>
+    <div class="steer-min" id="steer-min">0</div>
+    <div class="steer-max" id="steer-max">100</div>
+    <div class="progress" style="height: 40%">
+    <div id="rear" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+    </div>
+  </div>
+    <div class="ws-rear" id="ws-rear" style="text-align:center">0</div>
 </div>
 
 
-</body>
+  </body>
+  <!-- <footer><p id="footer">If there are any issues with this website, please let Jas know</p></footer> -->
+  <script src="\javascripts\server.js"></script>
 
+  </script>
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UTSME: Telemetry</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="\stylesheets\style.css" type="text/css">
+</head>
+
+<body style="background-color: #303338; color:white">
+  <!-- All scripts used -->
+  <script src="\javascripts\socket.io-client\dist\socket.io.js"></script>
+  <script src="\javascripts\socket.io\lib\socket.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="\javascripts\index.js" ></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- The header, title and menu -->
+  <header>
+    <h1 class="navbar-brand" style="  font-size: 32px; color: #303338">UTS Motorsports 2019</h1>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost/comp'">Comp</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/mechanical'">Mechanical</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost'">Home</button>
+</header>
+<script>
+  var socket = io('http://localhost:3000');
+  socket.on('hello', function( type, number) {
+
+    switch(type) {
+      case 'speed' : $('#table').append('<tr>'number'</tr>'); break;
+      case 'steerpos' : $('#steer').append('<tr>new</tr>'); break;
+      case 'brake' : break;
+      case 'bms' : break;
+      case 'voltage' : break;
+      case 'temp' : break;
+      case 'df-fault1' || "df-fault2" || 'df-fault3' || 'df-fault4' : break;
+      case 'fault1' || "fault2" || 'fault3' || 'fault4' : break;
+  });
+</script>
+
+<table class="table table-striped table-dark" id="table">
+  <thead>
+    <tr>
+      <th scope="col">Speed</th>
+      <th scope="col">Steer</th>
+      <th scope="col">brake</th>
+      <th scope="col">BMS</th>
+      <th scope="col">Voltage</th>
+      <th scope="col">Temp</th>
+      <th scope="col">DF</th>
+      <th scope="col">Faults</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+
+  </body>
+</html>

@@ -6,9 +6,7 @@ var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
 const app = express();
 
-var db = 'mongodb://localhost:27017/telemetry';
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; //The port the server is listening to, this should stay the same
 const server = app.listen(PORT);
 var io = require('socket.io')(server);
 var indexRouter = require('./public/javascripts/index.js');
@@ -16,26 +14,41 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/', indexRouter);
 app.io = io;
+/***********************************DONT CHANGE ANYTHING ABOVE THIS LINE **********************************************************/
 
+var db = 'mongodb://localhost:27017/telemetry'; //The database, change this to the pi's database
 var MongoClient = require('mongodb').MongoClient;
-// Connect to the db
-MongoClient.connect(db, function (err, db) {
-  if(err) {
-    throw err;
-  } else {
-    var db = db.db('telemetry');
-    db.collection("UTSTelemetry").find({}).each(function(err, items) {
-      if(err) throw err;
-      console.log( items);
-      io.emit('data', items);
-      io.on('connection', function(socket) {
-        // console.log('a user is connected ' + socket.id );
-        if(items != null)  socket.emit('hello', items.type, items.number);
-      });
 
+// Connect to the db
+  MongoClient.connect(db, function (err, db) {
+    if(err) {
+      throw err;
+    } else {
+      var db = db.db('telemetry'); //The database in mongodb
+      var collection = db.collection("UTSTelemetry"); //The collection in mongodb
+      function database() {
+        collection.find({}).each(function(err, items) {
+          if(err) throw err;
+          console.log( items);
+
+          io.on('connection', function(socket) {
+            // console.log('a user is connected ' + socket.id );
+            if(items != null)  {
+              io.emit('data', items);
+              setInterval(function() {
+              socket.emit('hello', items.type, items.number); //type and number are the columns. You can change this to suit the database.
+              // db.collection("UTSTelemetry").deleteOne(items);
+            }, 2500);
+            }
+          });
+        });
+    }
+    setInterval(database, 5000);
+    }
   });
-}
-});
+
+/***********************************DONT CHANGE ANYTHING BELOW THIS LINE **********************************************************/
+
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
@@ -71,4 +84,4 @@ res.render('error.ejs');
 });
 
 module.exports = app;
-module.exports.io = io;
+// module.exports.io = io;

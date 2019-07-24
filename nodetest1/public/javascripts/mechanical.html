@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UTSME: Telemetry</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="\stylesheets\style.css" type="text/css">
+  <link rel="icon" href="images\download.jfif">
+</head>
+
+<body style="background-color: #303338; color:white">
+  <!-- All scripts used -->
+  <script src="\javascripts\socket.io-client\dist\socket.io.js"></script>
+  <script src="\javascripts\socket.io\lib\socket.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="\javascripts\index.js" ></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- The header, title and menu -->
+  <header>
+    <img src="images\logo.jfif" alt="logo" onclick="location.href='http://localhost:3000'">
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/comp'">Comp</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/start-up'">Start Up</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/electrical'">Electrical</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000/mechanical'">Mechanical</button>
+    <button type="button" style="float: right" class="navbar-toggler" onclick="location.href='http://localhost:3000'">Home</button>
+</header>
+
+    <div class="steer" id="steer" style="text-align:center">
+        <div class="steer-label" id="steer-label" >Battery Temp</div>
+        <div class="steer-min" id="steer-min">0</div>
+        <div class="steer-max" id="steer-max">90</div>
+        <div class="progress" style="height: 40%">
+        <div id="battery" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+        </div>
+      </div>
+        <div class="bt-num" id="bt-num" style="text-align:center">0</div>
+    </div>
+
+    <div class="steer" id="steer" style="text-align:center">
+      <div class="steer-label" id="steer-label" >Battery Vol</div>
+      <div class="steer-min" id="steer-min">-90</div>
+      <div class="steer-max" id="steer-max">90</div>
+      <div class="progress" style="height: 40%">
+      <div id="voltage" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+      </div>
+    </div>
+      <div class="bv-num" id="bv-num" style="text-align:center">0</div>
+  </div>
+
+  <div class="steer" id="steer" style="text-align:center">
+    <div class="steer-label" id="steer-label" >Coolant Temp</div>
+    <div class="steer-min" id="steer-min">-90</div>
+    <div class="steer-max" id="steer-max">90</div>
+    <div class="progress" style="height: 40%">
+    <div id="colant" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+    </div>
+  </div>
+    <div class="ct-num" id="ct-num" style="text-align:center">0</div>
+</div>
+
+    <div class="steer" id="steer" style="text-align:center">
+      <div class="steer-label" id="steer-label" >Wheel Speed</div>
+      <p>Front</p>
+      <div class="steer-min" id="steer-min">0</div>
+      <div class="steer-max" id="steer-max">100</div>
+      <div class="progress" style="height: 40%">
+      <div id="front" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+      </div>
+    </div>
+      <div class="ws-front" id="ws-front" style="text-align:center">0</div>
+  </div>
+
+  <div class="steer" id="steer" style="text-align:center">
+    <div class="steer-label" id="steer-label" >Wheel Speed</div>
+    <p>Rear</p>
+    <div class="steer-min" id="steer-min">0</div>
+    <div class="steer-max" id="steer-max">100</div>
+    <div class="progress" style="height: 40%">
+    <div id="rear" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
+    </div>
+  </div>
+    <div class="ws-rear" id="ws-rear" style="text-align:center">0</div>
+</div>
+
+
+    </body>
+<!-- <footer><p>If there are any issues with this website, please let Jas know</p></footer> -->
+  <script src="\javascripts\mechanicalServer.js"></script>
+
+  <!-- <script src="\javascripts\server.js"></script> -->
+
+  </html>
