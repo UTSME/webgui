@@ -12,4 +12,12 @@ To connect,
   
  Can also be found at utsme.local.bhd.com.au
  
+ The database consists of
+  1. id
+  2. type
+  3. number
+  4. timestamp
+  
+ 
+ 
  
