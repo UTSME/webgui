@@ -16,37 +16,58 @@ app.use('/', indexRouter);
 app.io = io;
 /***********************************DONT CHANGE ANYTHING ABOVE THIS LINE **********************************************************/
 
-var db = 'mongodb://localhost:27017/telemetry'; //The database, change this to the pi's database
+var db = 'mongodb+srv://jas:ilgeah01@cluster0-smwft.mongodb.net/admin?retryWrites=true&w=majority'; //The database, change this to the pi's database
 var MongoClient = require('mongodb').MongoClient;
 
 // Connect to the db
+function database() {
   MongoClient.connect(db, function (err, db) {
     if(err) {
       throw err;
     } else {
-      var db = db.db('telemetry'); //The database in mongodb
-      var collection = db.collection("UTSTelemetry"); //The collection in mongodb
-      function database() {
-        collection.find({}).each(function(err, items) {
-          if(err) throw err;
-          console.log( items);
+      var db = db.db('UTSM19'); //The database in mongodb
+      var speedCollection = db.collection("Testing Speed"); //The collection in mongodb
 
-          io.on('connection', function(socket) {
-            // console.log('a user is connected ' + socket.id );
-            if(items != null)  {
-              io.emit('data', items);
-              setInterval(function() {
-              socket.emit('hello', items.type, items.number); //type and number are the columns. You can change this to suit the database.
-              // db.collection("UTSTelemetry").deleteOne(items);
-            }, 2500);
-            }
-          });
-        });
-    }
-    setInterval(database, 5000);
+      const changeSpeedStream = speedCollection.watch();
+
+      changeSpeedStream.on("change", function(event) {
+        console.log("Speed: " + event.fullDocument.Speed);
+        io.emit('speed', JSON.stringify(event.fullDocument.Speed));
+      });
+
+      var throttleCollection = db.collection("Testing Throttle");
+      const changeThrottleStream = throttleCollection.watch();
+      changeThrottleStream.on("change", function(event) {
+        console.log("Throttle: " + event.fullDocument.ThrottleLow);
+        io.emit('throttle', JSON.stringify(event.fullDocument.ThrottleLow));
+      });
+
+      var bmsCollection = db.collection("Testing BMS Main");
+      const changeBMSStream = bmsCollection.watch();
+      changeBMSStream.on("change", function(event) {
+        console.log("BMS: " + event.fullDocument.bmsmain);
+        io.emit('throttle', JSON.stringify(event.fullDocument.bmsmain));
+      });
+
+
+      // var userCollection = db.collection('users');
+      // userCollection.findOne({username: "jasmine", password: "1234"}, function(err, doc) {
+      //   if(err) throw err;
+      //   if(doc) {
+      //     console.log("FOUND");
+      //     socket.emit('userFound', 'yes');
+      //   } else {
+      //     socket.emit("userFound", 'no');
+      //     console.log("NO")
+      //   }
+      // })
+
     }
   });
+}
+database();
 
+// setInterval(database, 500);
 /***********************************DONT CHANGE ANYTHING BELOW THIS LINE **********************************************************/
 
 // view engine setup

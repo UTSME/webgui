@@ -9,7 +9,7 @@
     <link rel="icon" href="images\download.jfif">
 </head>
 
-<body style="background-color: #303338; color:white"
+<body style="background-color: #303338; color:white" id="body" class="body">
 
   <!-- All scripts used -->
   <script src="\javascripts\socket.io-client\dist\socket.io.js"></script>
@@ -18,12 +18,9 @@
   <script src="\javascripts\index.js" ></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="\chart.js\dist\Chart.js"></script>
+  <script src="\chart.js\dist\Chart.js"></script>
+  <script src="\javascripts\gaugeJS\dist\gauge.js" ></script>
 
-<script>
-  function autoRefreshPage(){ window.location = href.location; }
-  setInterval('autoRefreshPage()', 5000);
-</script>
 <!-- The header, title and menu -->
   <header>
     <img src="images\logo.jfif" alt="logo" onclick="location.href='http://localhost:3000'">
@@ -36,14 +33,12 @@
 
 <!--*********************************DONT CHANGE ANYTHING ABOVE THIS LINE********************************************************* -->
 
-
   <!-- This is where the gauges begin -->
   <!-- Steering Position: value from -90 to +90 -->
-
   <div class="steer" id="steer" style="text-align:center">
-    <div class="steer-label" id="steer-label" >Steer Pos</div>
-    <div class="steer-min" id="steer-min">-90</div>
-    <div class="steer-max" id="steer-max">90</div>
+    <div class="steer-label" id="steer-label" >Throttle Low</div>
+    <div class="steer-min" id="steer-min">0</div>
+    <div class="steer-max" id="steer-max">1000</div>
     <div class="progress" style="height: 40%">
     <div id="dynamic" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="-0" aria-valuemax="90" style="width: 0%">
     </div>
@@ -194,6 +189,8 @@
   </div>
     <div class="ws-rear" id="ws-rear" style="text-align:center">0</div>
 </div>
+
+<ul id="messages"></ul>
 
 
   </body>

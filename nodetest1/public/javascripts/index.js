@@ -31,4 +31,10 @@ app.get('/log', function(req, res) {
   res.sendFile( __dirname + '/log.html');
 });
 
+/*GET Sign in page*/
+app.get('/sign-in', function(req, res) {
+  res.sendFile( __dirname + '/sign-in.html');
+});
+
+
 module.exports = app;

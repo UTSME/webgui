@@ -156,3 +156,9 @@ footer {
   height: 300px;
   padding: 10px;
 }
+
+
+.sign-in-header {
+  padding-left: 45%;
+  padding-right: 45%;
+}
